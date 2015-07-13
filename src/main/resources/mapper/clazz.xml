@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0/EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- @Author 虞晶 -->
+<mapper namespace="com.alibaba.monitor.mavenWeb.dao.IClassDao">
+    <select id="LoadClass" parameterType="Object" resultType="com.alibaba.monitor.mavenWeb.pojos.Clazz">
+		select * from class where classid=#{classid};
+    </select>
+    <select id="LoadAllClass" parameterType="List" resultType="com.alibaba.monitor.mavenWeb.pojos.Clazz">
+    	select * from class;
+    </select>
+    <insert id="AddClass" parameterType="com.alibaba.monitor.mavenWeb.pojos.Clazz" > 
+        INSERT INTO class (classtype,intervals)
+        VALUES(#{classtype},#{intervals});
+    </insert>
+    <update id="ModifyClass" parameterType="com.alibaba.monitor.mavenWeb.pojos.Clazz">
+    	update class set classtype=#{classtype},intervals=#{intervals} where classid=#{classid}
+    </update>
+    <delete id="DeleteClass" parameterType="com.alibaba.monitor.mavenWeb.pojos.Clazz">
+    	delete from class where classid=#{classid};
+    </delete>
+</mapper>

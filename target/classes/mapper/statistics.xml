@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0/EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- @Author 虞晶 -->
+<mapper namespace="com.alibaba.monitor.mavenWeb.dao.IStatisticsDao">
+	<select id="LoadStatistics" parameterType="Object"
+		resultType="com.alibaba.monitor.mavenWeb.pojos.Statistics">
+		select * from statistics where stano=#{stano};
+	</select>
+	<select id="LoadAllStatistics" parameterType="com.alibaba.monitor.mavenWeb.pojos.Statistics"
+		resultType="com.alibaba.monitor.mavenWeb.pojos.Statistics">
+		select * from statistics;
+	</select>
+	<select id="loadStatisticsByEmpnoTime" parameterType="com.alibaba.monitor.mavenWeb.pojos.Statistics"
+		resultType="com.alibaba.monitor.mavenWeb.pojos.Statistics">
+		select * from statistics where empno=#{empno} and
+		years=#{years} and
+		months=#{months};
+	</select>
+	<insert id="AddStatistics" parameterType="com.alibaba.monitor.mavenWeb.pojos.Statistics">
+		INSERT INTO statistics
+		(months,years,empno,totalhours,dayshift,nightshift,normalshift,holidayshift)
+		VALUES(#{months},#{years},#{empno},#{totalhours},#{dayshift},#{nightshift},#{normalshift},#{holidayshift});
+	</insert>
+	<update id="ModifyStatistics" parameterType="com.alibaba.monitor.mavenWeb.pojos.Statistics">
+		update statistics
+		set
+		months=#{months},years=#{years},empno=#{empno},totalhours=#{totalhours},dayshift=#{dayshift},nightshift=#{nightshift},normalshift=#{normalshift},holidayshift=#{holidayshift}
+		where stano=#{stano};
+	</update>
+	<delete id="DeleteStatistics" parameterType="com.alibaba.monitor.mavenWeb.pojos.Statistics">
+		delete from
+		statistics where stano=#{stano};
+	</delete>
+</mapper>

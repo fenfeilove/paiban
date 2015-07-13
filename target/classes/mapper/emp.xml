@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0/EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- @Author 虞晶 -->
+<mapper namespace="com.alibaba.monitor.mavenWeb.dao.IEmpDao">
+	<select id="LoadEmp" parameterType="Object"
+		resultType="com.alibaba.monitor.mavenWeb.pojos.Emp">
+		select * from emp where empno=#{empno} and deleted=0;
+	</select>
+	<select id="LoadEmpByEmail" parameterType="Object"
+		resultType="com.alibaba.monitor.mavenWeb.pojos.Emp">
+		select * from emp where eemail=#{eemail} and deleted=0;
+	</select>
+	<select id="LoadAllEmp" parameterType="Object"
+		resultType="com.alibaba.monitor.mavenWeb.pojos.Emp">
+		select * from emp where deleted=0;
+	</select>
+	<select id="LoadEmpByKey" parameterType="String"
+		resultType="com.alibaba.monitor.mavenWeb.pojos.Emp">
+		select * from emp where (ename like CONCAT(CONCAT('%',
+		#{keyword}), '%') or
+		empno like CONCAT(CONCAT('%', #{keyword}), '%'))
+		and deleted=0;
+	</select>
+	<select id="loadEmpByEmpsearch" parameterType="com.alibaba.monitor.mavenWeb.pojos.EmpSearch"
+		resultType="com.alibaba.monitor.mavenWeb.pojos.Emp">
+		select * from emp where (ename like CONCAT(CONCAT('%',
+		#{keyword}), '%') or
+		empno like CONCAT(CONCAT('%', #{keyword}), '%'))
+		and deptno=#{deptno} and deleted=0;
+	</select>
+	<insert id="AddEmp" parameterType="com.alibaba.monitor.mavenWeb.pojos.Emp">
+		INSERT INTO emp
+		(ename,deptno,passWord,ephone,eemail,eaddress,arrayed)
+		VALUES(#{ename},#{deptno},#{passWord},#{ephone},#{eemail},#{eaddress},#{arrayed});
+	</insert>
+	<insert id="AddMulitEmp" parameterType="java.util.List">
+		INSERT INTO emp
+		(ename,deptno,passWord,ephone,eemail,eaddress,arrayed)
+		VALUES
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.ename},#{item.deptno},#{item.passWord},#{item.ephone},#{item.eemail},#{item.eaddress},#{item.arrayed})
+		</foreach>
+	</insert>
+	<update id="ModifyEmp" parameterType="com.alibaba.monitor.mavenWeb.pojos.Emp">
+		update emp set
+		ename=#{ename},deptno=#{deptno},passWord=#{passWord},ephone=#{ephone},eemail=#{eemail},eaddress=#{eaddress},arrayed=#{arrayed}
+		where empno=#{empno};
+	</update>
+
+	<update id="ModifyMulitEmp" parameterType="com.alibaba.monitor.mavenWeb.pojos.EmpArrayed">
+		update emp set arrayed=#{arrayed} where ename like
+		CONCAT(CONCAT('%', #{keyword}), '%')
+		and deptno=#{deptno} and
+		deleted=0;
+	</update>
+	<update id="ModifyMulitEmp2" parameterType="com.alibaba.monitor.mavenWeb.pojos.EmpArrayed">
+		update emp set arrayed=#{arrayed} where 
+		ename like CONCAT(CONCAT('%', #{keyword}), '%')
+		and deleted=0;
+	</update>
+	<update id="DeleteEmp" parameterType="com.alibaba.monitor.mavenWeb.pojos.Emp">
+		update emp set deleted=1
+		where empno=#{empno};
+	</update>
+</mapper>

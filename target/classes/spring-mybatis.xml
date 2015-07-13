@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+  http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+  
+  <bean id="JDBCConfig"
+    class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="location">
+        <value>classpath:jdbc.properties</value>
+    </property>
+  </bean>
+  
+  <!-- 数据源 one -->
+  <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+           init-method="init" destroy-method="close">
+     <property name="url">
+           <value>${app.url}</value>
+     </property>
+     <property name="username">
+         <value>${app.username}</value>
+     </property>
+     <property name="password">
+         <value>${app.password}</value>
+     </property>
+  </bean>
+   
+  <!-- mybatis文件配置，扫描所有mapper文件 -->
+  <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
+        p:dataSource-ref="dataSource" 
+        p:mapperLocations="classpath:mapper/*.xml"/>
+  <!-- configLocation为mybatis属性
+            mapperLocations为所有mapper -->
+    <!-- spring与mybatis整合配置，扫描所有dao -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
+          p:basePackage="com.alibaba.monitor.mavenWeb.dao" p:sqlSessionFactoryBeanName="sqlSessionFactory"/>
+    <!-- 对数据源进行事务管理 -->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+          p:dataSource-ref="dataSource"/>
+</beans>
+
+
+
+

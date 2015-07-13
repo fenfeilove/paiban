@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0/EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- @Author 虞晶 -->
+<mapper namespace="com.alibaba.monitor.mavenWeb.dao.IScheduleDao">
+    <select id="LoadSchedule" parameterType="Object" resultType="com.alibaba.monitor.mavenWeb.pojos.Schedule">
+		select * from schedule where schno=#{schno};
+    </select>
+    <select id="LoadScheduleByEmpTime" parameterType="com.alibaba.monitor.mavenWeb.pojos.Schedule" resultType="com.alibaba.monitor.mavenWeb.pojos.Schedule">
+		select * from schedule where empno=#{empno} and Dates=#{Dates};
+    </select>
+    <select id="LoadAllSchedule" parameterType="Object" resultType="com.alibaba.monitor.mavenWeb.pojos.Schedule">
+    	select * from schedule;
+    </select>
+    <select id="LoadScheduleByEmpno" parameterType="Integer" resultType="com.alibaba.monitor.mavenWeb.pojos.Schedule">
+    	select * from schedule where empno=#{empno};
+    </select>
+    <select id="LoadScheduleBySsearch" parameterType="com.alibaba.monitor.mavenWeb.pojos.ScheduleSearch" resultType="com.alibaba.monitor.mavenWeb.pojos.Schedule">
+    	select * from schedule where Dates BETWEEN #{leftdate} and #{rightdate} and empno=#{empno};
+    </select>
+    <select id="LoadScheduleByDate" parameterType="java.util.Date" resultType="com.alibaba.monitor.mavenWeb.pojos.Schedule">
+    	select * from schedule where Dates=#{date};
+    </select>
+    <insert id="AddSchedule" parameterType="com.alibaba.monitor.mavenWeb.pojos.Schedule" > 
+        INSERT INTO schedule (empno,classid,Dates)
+        VALUES(#{empno},#{classid},#{Dates});
+    </insert>
+    <insert id="AddMulitSchedule" parameterType="java.util.List">
+		INSERT INTO schedule (empno,classid,Dates)
+		VALUES
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.empno},#{item.classid},#{item.Dates})
+		</foreach>
+	</insert>
+    <update id="ModifySchedule" parameterType="com.alibaba.monitor.mavenWeb.pojos.Schedule">
+    	update schedule set empno=#{empno},classid=#{classid},Dates=#{Dates} where schno=#{schno}
+    </update>
+    <update id="ModifyScheduleByEmpno" parameterType="com.alibaba.monitor.mavenWeb.pojos.Schedule">
+    	update schedule set classid=#{classid} where empno=#{empno} and Dates=#{Dates};
+    </update>
+    <delete id="DeleteSchedule" parameterType="com.alibaba.monitor.mavenWeb.pojos.Schedule">
+    	delete from schedule where schno=#{schno};
+    </delete>
+</mapper>

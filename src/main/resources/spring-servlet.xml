@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="
+            http://www.springframework.org/schema/beans     
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/mvc
+            http://www.springframework.org/schema/mvc/spring-mvc.xsd
+            http://www.springframework.org/schema/context 
+            http://www.springframework.org/schema/context/spring-context.xsd">
+	<context:annotation-config></context:annotation-config>
+	<mvc:annotation-driven />
+
+	<mvc:default-servlet-handler />
+	<mvc:resources location="/dist/**" mapping="/dist/"></mvc:resources>
+	<mvc:resources location="/partials/**" mapping="/partials/"></mvc:resources>
+	<mvc:resources location="/sheetjs/**" mapping="/sheetjs/"></mvc:resources>
+	
+	<!--配置拦截器, 多个拦截器,顺序执行 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<!-- 匹配的是url路径， 如果不配置或/**,将拦截所有的Controller -->
+			<!-- <mvc:mapping path="/**"/>
+			<mvc:exclude-mapping path="/"/>
+			<mvc:exclude-mapping path="/login.html"/>
+			<mvc:exclude-mapping path="/logout.html"/>
+			<mvc:exclude-mapping path="/api"/> 
+			<mvc:exclude-mapping path="/dist/login.jpg"/>
+			<mvc:exclude-mapping path="/error.html"/> -->
+			<mvc:mapping path="/home"/>
+			<mvc:mapping path="/employee"/>
+			<mvc:mapping path="chaxun2"/>
+			<mvc:mapping path="/department"/>
+			<mvc:mapping path="/shiftcfg"/>
+			<mvc:mapping path="/shift"/>
+			<mvc:mapping path="/stat"/>
+			<bean class="com.alibaba.monitor.mavenWeb.interceptor.CommonInterceptor"></bean>
+		</mvc:interceptor>
+		<!-- 当设置多个拦截器时，先按顺序调用preHandle方法，然后逆序调用每个拦截器的postHandle和afterCompletion方法 -->
+	</mvc:interceptors>
+
+
+	<!-- <mvc:annotation-driven> <mvc:message-converters> <bean id="jacksonMessageConverter" 
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"></bean> 
+		<bean class="org.springframework.http.converter.StringHttpMessageConverter"> 
+		<property name="supportedMediaTypes"> <list> <value>application/json;charset=UTF-8</value> 
+		</list> </property> </bean> </mvc:message-converters> </mvc:annotation-driven> -->
+	<!-- <mvc:annotation-driven> <mvc:message-converters> <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" 
+		/> </mvc:message-converters> </mvc:annotation-driven> -->
+
+	<bean id="jacksonMessageConverter"
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"></bean>
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="jacksonMessageConverter" />
+			</list>
+		</property>
+	</bean>
+
+
+	<context:component-scan base-package="com.alibaba.monitor.mavenWeb.controller"></context:component-scan>
+	<context:component-scan base-package="com.alibaba.monitor.mavenWeb.service"></context:component-scan>
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		p:prefix="/page/" p:suffix=".jsp">
+
+	</bean>
+</beans>	
+	

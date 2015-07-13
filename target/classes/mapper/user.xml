@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0/EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- @Author 虞晶 -->
+<mapper namespace="com.alibaba.monitor.mavenWeb.dao.IUserDao">
+	<select id="LoadUser" parameterType="com.alibaba.monitor.mavenWeb.pojos.User" resultType="com.alibaba.monitor.mavenWeb.pojos.User" >
+		select * from users where userid=#{userid};
+	</select>
+	<insert id="AddMulitUser" parameterType="java.util.List">
+		INSERT INTO users (username,passwd)
+		VALUES
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.username},#{item.passwd})
+		</foreach>
+	</insert>
+</mapper>
+
+

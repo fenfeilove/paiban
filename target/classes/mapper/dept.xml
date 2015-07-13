@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0/EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- @Author 虞晶 -->
+<mapper namespace="com.alibaba.monitor.mavenWeb.dao.IDeptDao">
+    <select id="LoadDept" parameterType="Object" resultType="com.alibaba.monitor.mavenWeb.pojos.Dept">
+		select * from dept where deptno=#{deptno};
+    </select>
+    <select id="LoadAllDept" parameterType="Object" resultType="com.alibaba.monitor.mavenWeb.pojos.Dept">
+    	select * from dept;
+    </select>
+    <insert id="AddDept" parameterType="com.alibaba.monitor.mavenWeb.pojos.Dept" > 
+        INSERT INTO dept (dname,describes)
+        VALUES(#{dname},#{describes});
+    </insert>
+    <update id="ModifyDept" parameterType="com.alibaba.monitor.mavenWeb.pojos.Dept">
+    	update dept set dname=#{dname},describes=#{describes} where deptno=#{deptno}
+    </update>
+    <delete id="DeleteDept" parameterType="com.alibaba.monitor.mavenWeb.pojos.Dept">
+    	delete from dept where deptno=#{deptno};
+    </delete>
+</mapper>

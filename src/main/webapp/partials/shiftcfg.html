@@ -1,0 +1,64 @@
+<form class="form col-md-4">
+	<label> <input type="radio" ng-model="mode" value="0">
+		周期性排班
+	</label><br /> 
+	<label> <input type="radio"
+		ng-model="mode" value="1"> 模式1
+	</label><br /> 
+	<label> <input type="radio" ng-model="mode" value="2">
+		模式2
+	</label><br /> 
+	<label> <input type="radio" ng-model="mode" value="3">
+		模式3
+	</label><br />
+
+
+
+	<input type="text" class="form-control" placeholder="选择日期"
+		id="datepicker" ng-model="searchDate" />
+
+<br/>
+	<button class="btn btn-success" ng-click="submit()">submit</button>
+
+
+
+</form>
+
+
+<div class="col-md-8">
+<ul>
+	<li>
+        <h3>周期性排班（正常班） </h3>
+
+        <p> 工作日（工作日上班，周六周日放假）
+        </p>
+    </li>
+  
+    <li>
+        <h3>模式一（正常班） </h3>
+
+        <p> 自然天（轮休制：每天都有人上班）
+        规则：在保证员工一周上班小时数不超过40的情况下，只排正常班。
+        </p>
+    </li>
+    <li>
+        <h3>模式二（白班、夜班)</h3>
+
+        <p>自然天（轮休制：每天都有人上班）
+            规则：在保证员工一周上班小时数不超过40的情况下，只排白、夜班。
+          </p>
+          <img alt="" src="dist/b1.png"/>
+
+    </li>
+    <li>
+        <h3>模式三（白班、夜班、正常班）</h3>
+
+        <p>自然天（轮休制：每天都有人上班）
+            规则：在保证员工一周上班小时数不超过40且每种班每天都有人值班的情况下，轮流排白、夜、正常班。
+          </p>
+          <img alt="" src="dist/b2.png"/>
+    </li>
+</ul>
+</div>
+
+<!-- {{message}} -->

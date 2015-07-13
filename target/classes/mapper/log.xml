@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0/EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- @Author 虞晶 -->
+<mapper namespace="com.alibaba.monitor.mavenWeb.dao.ILogDao">
+    <insert id="AddLog" parameterType="com.alibaba.monitor.mavenWeb.pojos.Log" > 
+        insert into log(empno,dates,tablename,operate,bfupdate,updated)
+        values(#{empno},#{dates},#{tablename},#{operate},#{bfupdate},#{updated});
+    </insert>
+</mapper>

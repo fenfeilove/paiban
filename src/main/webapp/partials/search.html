@@ -1,0 +1,40 @@
+<div class="row">
+	<div class="col-md-2">
+		<input type="text" class="form-control" placeholder="选择日期" id="datepicker" ng-model="searchDate" />
+	</div>
+
+	<div class="col-md-2">
+
+		<button class="btn btn-primary" ng-click="search()">日期检索</button>
+	</div>
+
+	<div class="col-md-2">
+
+		<input class="form-control " type="text" ng-model="query.ename"  placeholder="输入员工名以检索" />
+	</div>
+	<div class="col-md-2">
+		<select class="form-control " ng-model="query.deptno">
+			<option value="">所有部门</option>
+			<option ng-repeat="department in allDepartment"
+				value="{{department.deptno}}">{{department.dname}}</option>
+		</select>
+	</div>
+
+</div>
+<br/>
+<div class="row">
+
+	<table class="table">
+		<tr>
+			<th>#</th>
+			<th>name</th>
+			<th>deptname</th>
+		</tr>
+		<tr ng-repeat="row in rows | filter:query">
+			<td>{{row.empno}}</td>
+			<td>{{row.ename}}</td>
+			<td>{{row.deptName}}</td>
+
+		</tr>
+	</table>
+</div>

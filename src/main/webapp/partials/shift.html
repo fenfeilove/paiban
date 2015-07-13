@@ -1,0 +1,49 @@
+<div class="row">
+	<div class="col-md-3">
+		<select class="form-control"
+			onChange="window.location.href=('#/shift/0/'+this.value)">
+			<option value="0">所有部门</option>
+			<option ng-repeat="dept in allDepartment" ng-value="dept.deptno"
+				ng-selected="dept.deptno == deptno">{{dept.dname}}</option>
+		</select>
+	</div>
+	<div class="col-md-3" class="checkbox" >
+		<label style="font-size:16px;margin-top:5px"> <input type="checkbox" ng-model="editable"
+			ng-init="editable=false" />打开编辑
+		</label>
+		<button class="btn btn-success"  ng-click="export()" style="margin-left:20px">导出排班表</button>
+	</div>
+	
+
+</div>
+<ul class="pager">
+	<li class="previous"><a href="#/shift/{{weekno-1}}/{{deptno}}">&larr;
+			Previous week</a></li>
+	<li class="next"><a href="#/shift/{{weekno-(-1)}}/{{deptno}}">Next
+			week &rarr;</a></li>
+</ul>
+<table class="table table-bordered">
+	<tr>
+		<th>id</th>
+		<th>name</th>
+		<th>dept</th>
+		<th ng-repeat="w in week">{{w | date:'M-d-EEE'}}</th>
+	</tr>
+
+	<tr ng-repeat="tb in sft">
+	<td>{{tb.emp.empno}}</td>
+		<td>{{tb.emp.ename}}</td>
+		<td>{{tb.emp.deptName}}</td>
+		<td ng-repeat="b in tb.a track by $index" class="color{{b}}" >
+			<div ng-if="!editable" >{{b==4?'休息':b==1?'白班':b==2?'夜班':b==3?'正常班':''}}</div>
+		
+			<select ng-model="b"  ng-if="editable" ng-change="onChange(tb.emp.empno,b,$index)"  class="color{{b}}">
+				<option value="0" >未安排</option>
+				<option value="1" >白班</option>
+				<option value="2" >夜班</option>
+				<option value="3" >正常班</option>
+				<option value="4" >休息</option>
+			</select>
+		</td>
+	</tr>
+</table>

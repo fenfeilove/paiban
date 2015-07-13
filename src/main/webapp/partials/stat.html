@@ -1,0 +1,55 @@
+<div class="row" >
+	<div class="col-md-2">
+
+		<input class="form-control " type="text" ng-model="query.ename" placeholder="输入员工名以检索" />
+	</div>
+	<div class="col-md-2">
+		<select class="form-control " ng-model="query.deptno">
+			<option value="">所有部门</option>
+			<option ng-repeat="department in allDepartment"
+				value="{{department.deptno}}">{{department.dname}}</option>
+		</select>
+	</div>
+
+</div>
+<div class="row">
+<div class="col-md-4">
+	<h1 >{{d.getFullYear()}}-{{d.getMonth()+1}}</h1>
+</div>
+
+</div>
+
+<ul class="pager">
+	<li class="previous"><a href="#/stat/{{m-1}}">&larr;
+			Previous month</a></li>
+	<li class="next"><a href="#/stat/{{m-(-1)}}">Next
+			month &rarr;</a></li>
+</ul>
+
+<div class="row">
+<table class="table">
+	<tr>
+		<th>#</th>
+		<th>姓名</th>
+		<th>部门</th>
+		<th>总工时</th>
+		<th>白班</th>
+		<th>夜班</th>
+		<th>正常班</th>
+		<th>休假</th>
+	</tr>
+	
+	<tr ng-repeat="row in rows | filter: query" >
+		<td>{{row.empno}}</td>
+		<td>{{row.ename}}</td>
+		<td>{{row.deptName}}</td>
+		<td>{{row.totalhours}}</td>
+		<td>{{row.dayshift}}</td>
+		<td>{{row.nightshift}}</td>
+		<td>{{row.normalshift}}</td>
+		<td>{{row.holidayshift}}</td>
+	</tr>
+
+</table>
+	
+</div>

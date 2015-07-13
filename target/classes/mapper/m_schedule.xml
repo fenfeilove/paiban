@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0/EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- @Author 虞晶 -->
+<mapper namespace="com.alibaba.monitor.mavenWeb.dao.IM_ScheduleDao">
+    <select id="LoadMScheduleByEmpno" parameterType="com.alibaba.monitor.mavenWeb.pojos.M_Schedule" resultType="com.alibaba.monitor.mavenWeb.pojos.M_Schedule">
+		select * from m_schedule where empno=#{empno} and years=#{years} and months=#{months} and flag=0;
+    </select>
+    <insert id="AddMSchedule" parameterType="com.alibaba.monitor.mavenWeb.pojos.M_Schedule" > 
+        INSERT INTO m_schedule (empno,years,months,flag)
+        VALUES(#{empno},#{years},#{months},#{flag});
+    </insert>
+</mapper>
