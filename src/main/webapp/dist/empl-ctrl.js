@@ -101,7 +101,7 @@ paibanControllers.controller('EmployeeCtrl', ['$scope', '$routeParams',
 
             var wbout = XLSX.write(wb, {bookType: 'xlsx', bookSST: false, type: 'binary'});
 
-            saveAs(new Blob([s2ab(wbout)], {type: "application/octet-stream"}), "模版.xlsx")
+            saveAs(new Blob([s2ab(wbout)], {type: "application/octet-stream"}), "模版.xlsx");
         }
 
 
